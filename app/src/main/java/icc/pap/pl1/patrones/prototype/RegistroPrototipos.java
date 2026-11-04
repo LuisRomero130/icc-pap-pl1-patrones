@@ -1,5 +1,5 @@
 package icc.pap.pl1.patrones.prototype;
 
-public class RegistroPrototipo {
+public class RegistroPrototipos {
     
 }
