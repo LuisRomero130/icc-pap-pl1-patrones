@@ -1,5 +1,9 @@
 package icc.pap.pl1.patrones.modelo;
 
-public class TipoProducto {
+public enum TipoProducto {
+    Cafe,Pizza,Ensalada
+
+    
+
     
 }

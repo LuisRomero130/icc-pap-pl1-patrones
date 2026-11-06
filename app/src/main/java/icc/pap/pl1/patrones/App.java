@@ -3,12 +3,183 @@
  */
 package icc.pap.pl1.patrones;
 
+import java.math.BigDecimal;
+
+import icc.pap.pl1.patrones.modelo.Pedido;
+
+import icc.pap.pl1.patrones.prototype.ProductoBase;
+import icc.pap.pl1.patrones.prototype.RegistroPrototipos;
+import icc.pap.pl1.patrones.servicio.ServicioPedido;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
+    public static void main(String[] args) {
+        CA01();
+        System.out.println("------------");
+        CA02();
+        System.out.println("-----------");
+        CA03();
+        System.out.println("------------");
+        CA04();
+        System.out.println("-----------");
+        CA05();
+        System.out.println("-------------");
+        CA06();
+        System.out.println("-------------");
+        CA07();
+        System.out.println("------------");
+        CA08();
+        System.out.println("------------");
+        CA09();
+        System.out.println("--------------");
+        CA10();
+        System.out.println("-----------");
+        CA11();
+
+        
+    }
+    public static void CA01(){
+        RegistroPrototipos registro= new RegistroPrototipos();
+        ProductoBase clonCafe1= registro.clonar("cafe", "P-001");
+        ProductoBase clonCafe2 = registro.clonar("cafe", "P-002");
+        System.out.println(clonCafe1.id()+ " $"+clonCafe1.precio());
+        System.out.println(clonCafe2.id()+ " $"+clonCafe2.precio());
+        System.out.println("IDs diferentes: " + !clonCafe1.id().equals(clonCafe2.id()));
+        
+
+
+        
+    }
+   public static void CA02() {
+    RegistroPrototipos registro = new RegistroPrototipos();
+    ServicioPedido servicio = new ServicioPedido();  
+
+
+    ProductoBase clon = registro.clonar("cafe", "P-001");
+    System.out.println("¿El clon es el prototipo registrado?: " + registro.esInstanciaRegistrada(clon));   
+
+    Pedido decorado = servicio.agregarIngrediente(clon, "azucar");
+    ProductoBase otro = registro.clonar("cafe", "P-002");
+    System.out.println("Clon decorado: " + decorado.precio());
+    System.out.println("Clon nuevo: " + otro.precio()); 
+   }  
+   public static void CA03(){
+    RegistroPrototipos registro= new RegistroPrototipos();
+    ServicioPedido servicio = new ServicioPedido();
+    Pedido cafe= registro.clonar("cafe", "P-001");
+    Pedido cafeDecorado= (servicio.agregarIngrediente(servicio.agregarIngrediente(cafe, "azucar"),"crema"));
+    System.out.println(cafeDecorado.descripcion()+ " $"+ cafeDecorado.precio());
+    
+   }     
+   public static void CA04(){
+    RegistroPrototipos registro= new RegistroPrototipos();
+    ServicioPedido servicio = new ServicioPedido();
+    
+    Pedido cafe1= registro.clonar("cafe", "P-001");
+    Pedido cafe2= registro.clonar("cafe", "P-002");
+    Pedido cafe1Decorado= (servicio.agregarIngrediente(servicio.agregarIngrediente(cafe1, "azucar"),"crema"));
+    System.out.println(cafe1Decorado.descripcion()+ " $"+ cafe1Decorado.precio());
+    System.out.println(cafe2.descripcion()+ " $"+ cafe2.precio());
+
+    
+
+   }
+   public static void CA05(){
+    RegistroPrototipos registro= new RegistroPrototipos();
+    ServicioPedido servicio= new ServicioPedido();
+    Pedido ensaladaClon= registro.clonar("ensalada", "P-001");
+    Pedido ensaladaClonDecorada= servicio.agregarIngrediente(servicio.agregarIngrediente(ensaladaClon, "tomate"),"pollo");
+    System.out.println(ensaladaClonDecorada.descripcion()+ " $"+ ensaladaClonDecorada.precio());
+
+   }
+   public static void CA06(){
+    RegistroPrototipos registro= new RegistroPrototipos();
+    ServicioPedido servicio= new ServicioPedido();
+    Pedido pizzaClon= registro.clonar("pizza", "P-001");
+    Pedido pizzaClonDecorado= servicio.agregarIngrediente(servicio.agregarIngrediente(pizzaClon, "queso"),"pepperoni");
+    System.out.println(pizzaClonDecorado.descripcion()+ " $"+ pizzaClonDecorado.precio());
+
+   }
+  public static void CA07() {
+
+    RegistroPrototipos registro = new RegistroPrototipos();
+    ServicioPedido servicio = new ServicioPedido();
+    
+    Pedido cafeClon = registro.clonar("cafe", "P-001");
+    String descripcionOriginal = cafeClon.descripcion();
+    BigDecimal precioOriginal = cafeClon.precio();
+    
+        try {
+            Pedido cafeClonDecorado = servicio.agregarIngrediente(cafeClon, "queso");
+            System.out.println(cafeClonDecorado.descripcion() + " $" + cafeClonDecorado.precio());
+        } catch (IllegalArgumentException e) {
+            System.out.println("CA07 - Operación rechazada con éxito: " + e.getMessage());
+            
+            boolean descripcionSinCambios = cafeClon.descripcion().equals(descripcionOriginal);
+            boolean precioSinCambios = cafeClon.precio().equals(precioOriginal);
+            
+            System.out.println("La descripción original no cambió: " + descripcionSinCambios);
+            System.out.println("El precio original no cambió: " + precioSinCambios);
+        }
+    }
+    public static void CA08(){
+        
+        ServicioPedido servicio = new ServicioPedido();
+        Pedido cafeclon= null;
+        try{
+            Pedido cafeClonDecorado= servicio.agregarIngrediente(cafeclon, "azucar");
+            System.out.println(cafeClonDecorado.descripcion() + " $"+ cafeClonDecorado.precio());
+
+        }catch(IllegalStateException e){
+            System.out.println("CA08 - No se puede agregar nada sin tener un pedido: "+ e.getMessage());
+        }
+    
+
+
+
+
+    }
+    public static void CA09(){
+        RegistroPrototipos registro= new RegistroPrototipos();
+        try{
+            
+            Pedido sushiClon= registro.clonar("sushi", "P-001");
+            System.out.println(sushiClon.descripcion()+ " $"+ sushiClon.precio());
+
+
+        }catch(IllegalArgumentException i){
+            System.out.println("CA09 - no se puede usar una clave que no se encuentra en el listado: " + i.getMessage());
+        }
+
+       
+
+
+    }
+    public static void CA10(){
+        RegistroPrototipos registro= new RegistroPrototipos();
+        ServicioPedido servicio= new ServicioPedido();
+        Pedido cafeClon= registro.clonar("cafe", "P-001");
+        Pedido cafeClonDecorado= servicio.agregarIngrediente(servicio.agregarIngrediente(cafeClon, "azucar"),"azucar");
+        System.out.println(cafeClonDecorado.descripcion()+ " $"+ cafeClonDecorado.precio());
+
+    }
+    public static void CA11() {
+
+    RegistroPrototipos registro = new RegistroPrototipos();
+    ServicioPedido servicio = new ServicioPedido();
+
+    Pedido cafe1 = registro.clonar("cafe", "P-001");
+
+    Pedido cafeDecorado = servicio.agregarIngrediente(servicio.agregarIngrediente(cafe1, "azucar"),"crema");
+
+    System.out.println("Primer Café decorado: "+ cafeDecorado.descripcion() + " $" + cafeDecorado.precio());
+
+    registro = new RegistroPrototipos();
+
+    Pedido cafe2 = registro.clonar("cafe", "P-002");
+
+    System.out.println("Nuevo Café después del reinicio: " + cafe2.descripcion() + " $"+ cafe2.precio());
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
-    }
 }
+
+    
