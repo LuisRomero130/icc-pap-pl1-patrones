@@ -5,11 +5,15 @@ package icc.pap.pl1.patrones;
 
 import java.math.BigDecimal;
 
+import javax.swing.SwingUtilities;
+
 import icc.pap.pl1.patrones.modelo.Pedido;
 
 import icc.pap.pl1.patrones.prototype.ProductoBase;
 import icc.pap.pl1.patrones.prototype.RegistroPrototipos;
-import icc.pap.pl1.patrones.servicio.ServicioPedido;
+import icc.pap.pl1.patrones.servicio.ServicioPedidos;
+import icc.pap.pl1.patrones.vista.VentanaPedidos;
+
 
 public class App {
     public static void main(String[] args) {
@@ -34,7 +38,9 @@ public class App {
         CA10();
         System.out.println("-----------");
         CA11();
-
+        SwingUtilities.invokeLater(() -> {
+        new VentanaPedidos().setVisible(true);
+});
         
     }
     public static void CA01(){
@@ -51,7 +57,7 @@ public class App {
     }
    public static void CA02() {
     RegistroPrototipos registro = new RegistroPrototipos();
-    ServicioPedido servicio = new ServicioPedido();  
+    ServicioPedidos servicio = new ServicioPedidos();  
 
 
     ProductoBase clon = registro.clonar("cafe", "P-001");
@@ -64,7 +70,7 @@ public class App {
    }  
    public static void CA03(){
     RegistroPrototipos registro= new RegistroPrototipos();
-    ServicioPedido servicio = new ServicioPedido();
+    ServicioPedidos servicio = new ServicioPedidos();
     Pedido cafe= registro.clonar("cafe", "P-001");
     Pedido cafeDecorado= (servicio.agregarIngrediente(servicio.agregarIngrediente(cafe, "azucar"),"crema"));
     System.out.println(cafeDecorado.descripcion()+ " $"+ cafeDecorado.precio());
@@ -72,7 +78,7 @@ public class App {
    }     
    public static void CA04(){
     RegistroPrototipos registro= new RegistroPrototipos();
-    ServicioPedido servicio = new ServicioPedido();
+    ServicioPedidos servicio = new ServicioPedidos();
     
     Pedido cafe1= registro.clonar("cafe", "P-001");
     Pedido cafe2= registro.clonar("cafe", "P-002");
@@ -85,7 +91,7 @@ public class App {
    }
    public static void CA05(){
     RegistroPrototipos registro= new RegistroPrototipos();
-    ServicioPedido servicio= new ServicioPedido();
+    ServicioPedidos servicio= new ServicioPedidos();
     Pedido ensaladaClon= registro.clonar("ensalada", "P-001");
     Pedido ensaladaClonDecorada= servicio.agregarIngrediente(servicio.agregarIngrediente(ensaladaClon, "tomate"),"pollo");
     System.out.println(ensaladaClonDecorada.descripcion()+ " $"+ ensaladaClonDecorada.precio());
@@ -93,7 +99,7 @@ public class App {
    }
    public static void CA06(){
     RegistroPrototipos registro= new RegistroPrototipos();
-    ServicioPedido servicio= new ServicioPedido();
+    ServicioPedidos servicio= new ServicioPedidos();
     Pedido pizzaClon= registro.clonar("pizza", "P-001");
     Pedido pizzaClonDecorado= servicio.agregarIngrediente(servicio.agregarIngrediente(pizzaClon, "queso"),"pepperoni");
     System.out.println(pizzaClonDecorado.descripcion()+ " $"+ pizzaClonDecorado.precio());
@@ -102,7 +108,7 @@ public class App {
   public static void CA07() {
 
     RegistroPrototipos registro = new RegistroPrototipos();
-    ServicioPedido servicio = new ServicioPedido();
+    ServicioPedidos servicio = new ServicioPedidos();
     
     Pedido cafeClon = registro.clonar("cafe", "P-001");
     String descripcionOriginal = cafeClon.descripcion();
@@ -123,7 +129,7 @@ public class App {
     }
     public static void CA08(){
         
-        ServicioPedido servicio = new ServicioPedido();
+        ServicioPedidos servicio = new ServicioPedidos();
         Pedido cafeclon= null;
         try{
             Pedido cafeClonDecorado= servicio.agregarIngrediente(cafeclon, "azucar");
@@ -156,7 +162,7 @@ public class App {
     }
     public static void CA10(){
         RegistroPrototipos registro= new RegistroPrototipos();
-        ServicioPedido servicio= new ServicioPedido();
+        ServicioPedidos servicio= new ServicioPedidos();
         Pedido cafeClon= registro.clonar("cafe", "P-001");
         Pedido cafeClonDecorado= servicio.agregarIngrediente(servicio.agregarIngrediente(cafeClon, "azucar"),"azucar");
         System.out.println(cafeClonDecorado.descripcion()+ " $"+ cafeClonDecorado.precio());
@@ -165,7 +171,7 @@ public class App {
     public static void CA11() {
 
     RegistroPrototipos registro = new RegistroPrototipos();
-    ServicioPedido servicio = new ServicioPedido();
+    ServicioPedidos servicio = new ServicioPedidos();
 
     Pedido cafe1 = registro.clonar("cafe", "P-001");
 
