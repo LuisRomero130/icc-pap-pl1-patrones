@@ -21,7 +21,7 @@ public class ServicioPedidos {
     private final List<Pedido> pedidos = new ArrayList<>();
     private final Map<String, Integer> indicePorId = new HashMap<>();
 
-    /** Crea un nuevo pedido a partir del prototipo (Prototype). */
+
     public Pedido agregarIngrediente(String clave) {
         if (clave == null || clave.isBlank()) {
             throw new IllegalArgumentException("Clave de producto no válida");
@@ -32,7 +32,7 @@ public class ServicioPedidos {
         return nuevo;
     }
 
-    /** Añade un ingrediente al pedido seleccionado, identificado por su id. */
+    
     public Pedido agregarIngrediente(String id, String ingrediente) {
         if (id == null) {
             throw new IllegalStateException("No se ha seleccionado ningún pedido");
@@ -53,10 +53,10 @@ public class ServicioPedidos {
     }
 
     public List<Pedido> listarPedidos() {
-        return new ArrayList<>(pedidos);   // copia para que nadie modifique la lista externamente
+        return new ArrayList<>(pedidos);   
     }
 
-    // ---- Lógica original (se mantiene igual) ----
+
 
     public Pedido agregarIngrediente(Pedido pedidoNuevo, String ingrediente) {
         if (pedidoNuevo == null) {
